@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case 1:
+                        startActivity(new Intent(getApplicationContext(), TablayoutViewPagerActivity.class));
                         break;
 
                     default:

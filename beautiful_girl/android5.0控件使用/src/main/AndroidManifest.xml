@@ -17,6 +17,8 @@
         </activity>
         <activity android:name=".TabLayoutActivity">
         </activity>
+        <activity android:name=".TablayoutViewPagerActivity">
+        </activity>
     </application>
 
 </manifest>

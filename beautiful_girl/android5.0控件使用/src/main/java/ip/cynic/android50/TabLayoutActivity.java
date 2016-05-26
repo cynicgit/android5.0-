@@ -16,6 +16,9 @@ public class TabLayoutActivity extends AppCompatActivity {
     private TabLayout mTabLayout;
     private RecyclerView mRecyclerView;
     private List<String> mLists = new ArrayList<>();
+
+    private String[] mTabTitles = new String[]{"tab1", "tab2", "tab3"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,9 +33,9 @@ public class TabLayoutActivity extends AppCompatActivity {
     public void initData() {
         setSupportActionBar(mToolbar);
 
-        mTabLayout.addTab(mTabLayout.newTab().setText("tab1"));
-        mTabLayout.addTab(mTabLayout.newTab().setText("tab2"));
-        mTabLayout.addTab(mTabLayout.newTab().setText("tab3"));
+        mTabLayout.addTab(mTabLayout.newTab().setText(mTabTitles[0]));
+        mTabLayout.addTab(mTabLayout.newTab().setText(mTabTitles[1]));
+        mTabLayout.addTab(mTabLayout.newTab().setText(mTabTitles[2]));
 
         for (int i = 0; i < 20; i++) {
             mLists.add(i + "");
