@@ -14,6 +14,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import ip.cynic.beautiful_girl.R;
 import ip.cynic.beautiful_girl.adapter.TabAdapter;
+import ip.cynic.beautiful_girl.fragment.PageFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     Toolbar mToolbar;
     @Bind(R.id.view_pager)
     ViewPager mViewPager;
+    private List<Fragment> mFragments;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,11 +38,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setTabs() {
-        List<Fragment> fragments = new ArrayList<Fragment>();
-        fragments.add(new Fragment());
-        fragments.add(new Fragment());
-        fragments.add(new Fragment());
-        TabAdapter tabAdapter = new TabAdapter(getSupportFragmentManager(),fragments);
+        mFragments = new ArrayList<Fragment>();
+        for (int i = 0; i < 3; i++) {
+            mFragments.add(PageFragment.newInstance(i));
+        }
+        TabAdapter tabAdapter = new TabAdapter(getSupportFragmentManager(), mFragments);
         mViewPager.setAdapter(tabAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
 

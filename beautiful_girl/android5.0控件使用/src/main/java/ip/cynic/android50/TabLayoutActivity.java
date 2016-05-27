@@ -41,10 +41,10 @@ public class TabLayoutActivity extends AppCompatActivity {
             mLists.add(i + "");
         }
 
-        ListAdapter listAdapter = new ListAdapter(getApplicationContext(),mLists);
+        ListAdapter listAdapter = new ListAdapter(getApplicationContext(), mLists);
         mRecyclerView.setAdapter(listAdapter);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(),
-                LinearLayoutManager.VERTICAL,false);
+                LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(layoutManager);
 
     }

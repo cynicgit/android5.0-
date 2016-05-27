@@ -1,4 +1,4 @@
-package ip.cynic.beautiful_girl;
+package ip.cynic.beautiful_girl.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;

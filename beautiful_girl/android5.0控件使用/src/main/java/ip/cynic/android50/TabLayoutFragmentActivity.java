@@ -1,16 +1,20 @@
 package ip.cynic.android50;
 
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.PagerAdapter;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 
-public class TablayoutViewPagerActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+import ip.cynic.android50.fragment.PageFragment;
+
+public class TabLayoutFragmentActivity extends AppCompatActivity {
 
     private Toolbar mToolbar;
     private TabLayout mTabLayout;
@@ -19,6 +23,8 @@ public class TablayoutViewPagerActivity extends AppCompatActivity {
     private int[] mResIDs = new int[]{R.mipmap.a, R.mipmap.b, R.mipmap.c};
 
     private String[] mTabTitles = new String[]{"tab1", "tab2", "tab3"};
+
+    List<Fragment> mFragments = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,40 +39,36 @@ public class TablayoutViewPagerActivity extends AppCompatActivity {
     }
 
     private void setTabs() {
+
+        for (int i = 0; i < 3; i++) {
+            mFragments.add(PageFragment.newInstance(i));
+        }
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);
-        MyAdapter adapter = new MyAdapter();
+        MyAdapter adapter = new MyAdapter(getSupportFragmentManager(), mFragments);
         mViewPager.setAdapter(adapter);
         mTabLayout.setupWithViewPager(mViewPager);
 
     }
 
 
-    class MyAdapter extends PagerAdapter {
+    class MyAdapter extends FragmentPagerAdapter {
+
+        private List<Fragment> fragments;
+
+        public MyAdapter(FragmentManager fm, List<Fragment> fragments) {
+            super(fm);
+            this.fragments = fragments;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return fragments.get(position);
+        }
 
         @Override
         public int getCount() {
-            return mResIDs.length;
+            return fragments.size();
         }
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == object;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView((View) object);
-        }
-
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            ImageView imageView = new ImageView(getApplicationContext());
-            imageView.setImageResource(mResIDs[position]);
-            container.addView(imageView);
-            return imageView;
-        }
-
 
         @Override
         public CharSequence getPageTitle(int position) {
