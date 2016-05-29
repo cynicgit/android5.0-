@@ -1,1 +1,1 @@
-include ':app', ':android5.0控件使用'
+include ':app', ':android5.0控件使用', ':rxjavademo'

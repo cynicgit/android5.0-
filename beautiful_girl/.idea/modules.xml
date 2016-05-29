@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/android5.0控件使用/android5.0控件使用.iml" filepath="$PROJECT_DIR$/android5.0控件使用/android5.0控件使用.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/beautiful_girl.iml" filepath="$PROJECT_DIR$/beautiful_girl.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rxjavademo/rxjavademo.iml" filepath="$PROJECT_DIR$/rxjavademo/rxjavademo.iml" />
     </modules>
   </component>
 </project>
