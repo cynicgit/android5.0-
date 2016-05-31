@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -32,7 +33,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void initData() {
+
         setSupportActionBar(mToolbar);
+        mToolbar.setNavigationIcon(R.mipmap.ic_list_white);//设置导航栏图标
+        mToolbar.setLogo(R.mipmap.ic_launcher);//设置app logo
+        mToolbar.setTitle("5.0Title");//设置主标题
+        mToolbar.setSubtitle("5.0Subtitle");//设置子标题
 
         for (int i = 0; i < 20; i++) {
             mLists.add(i + "");
@@ -67,6 +73,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 
 }

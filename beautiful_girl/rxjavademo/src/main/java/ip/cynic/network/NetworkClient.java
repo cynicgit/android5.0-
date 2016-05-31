@@ -1,5 +1,6 @@
 package ip.cynic.network;
 
+import ip.cynic.network.api.GankApi;
 import ip.cynic.network.api.ZhuangBiApi;
 import okhttp3.OkHttpClient;
 import retrofit2.CallAdapter;
@@ -13,7 +14,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class NetworkClient {
 
+    private final static String ZHUANGBIAPI_URL = "http://zhuangbi.info/";
+    private final static String GANK_URL = "http://gank.io/api/";
+
     private static ZhuangBiApi zhuangBiApi;
+    private static GankApi gankApi;
 
     private static OkHttpClient okHttpClient = new OkHttpClient();
     private static Converter.Factory gsonConverterFactory = GsonConverterFactory.create();
@@ -23,13 +28,30 @@ public class NetworkClient {
         if (zhuangBiApi == null) {
             Retrofit retrofit = new Retrofit.Builder()
                     .client(okHttpClient)
-                    .baseUrl("http://zhuangbi.info/")
+                    .baseUrl(ZHUANGBIAPI_URL)
                     .addConverterFactory(gsonConverterFactory)
                     .addCallAdapterFactory(rxJavaCallAdapterFactory)
                     .build();
             zhuangBiApi = retrofit.create(ZhuangBiApi.class);
         }
         return zhuangBiApi;
+    }
+
+
+    public static GankApi getGankApi() {
+
+        if (gankApi == null) {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .client(okHttpClient)
+                    .baseUrl(GANK_URL)
+                    .addConverterFactory(gsonConverterFactory)
+                    .addCallAdapterFactory(rxJavaCallAdapterFactory)
+                    .build();
+            gankApi = retrofit.create(GankApi.class);
+        }
+
+        return gankApi;
+
     }
 
 

@@ -14,6 +14,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import ip.cynic.adapter.TabPageAdapter;
 import ip.cynic.fragment.BasicFragment;
+import ip.cynic.fragment.MapFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void getFragments() {
         mFragments.add(new BasicFragment());
+        mFragments.add(new MapFragment());
     }
 
 

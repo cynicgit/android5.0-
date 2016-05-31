@@ -12,7 +12,7 @@ import java.util.List;
 public class TabPageAdapter extends FragmentPagerAdapter{
 
 
-    private String[] mTitles = new String[]{"基本"};
+    private String[] mTitles = new String[]{"基本","Map"};
     private List<Fragment> mFragments;
 
     public TabPageAdapter(FragmentManager fm , List<Fragment> fragments) {
