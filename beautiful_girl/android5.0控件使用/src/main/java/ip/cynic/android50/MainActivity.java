@@ -34,13 +34,15 @@ public class MainActivity extends AppCompatActivity {
 
     public void initData() {
 
-        setSupportActionBar(mToolbar);
-        mToolbar.setNavigationIcon(R.mipmap.ic_list_white);//设置导航栏图标
-        mToolbar.setLogo(R.mipmap.ic_launcher);//设置app logo
-        mToolbar.setTitle("5.0Title");//设置主标题
-        mToolbar.setSubtitle("5.0Subtitle");//设置子标题
+        mToolbar.setTitle("");//设置主标题
 
-        for (int i = 0; i < 20; i++) {
+        setSupportActionBar(mToolbar);
+        //mToolbar.setNavigationIcon(R.mipmap.ic_list_white);//设置导航栏图标
+        //mToolbar.setLogo(R.mipmap.ic_launcher);//设置app logo
+       // mToolbar.setTitle("5.0Title");//设置主标题
+       // mToolbar.setSubtitle("5.0Subtitle");//设置子标题
+
+        for (int i = 0; i < 30; i++) {
             mLists.add(i + "");
         }
 
