@@ -25,8 +25,8 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroy();
         ButterKnife.unbind(this);
-        unsubscribe();
-        Log.d(TAG,"onDestroyView");
+       // unsubscribe();
+        Log.e(TAG,"onDestroyView");
     }
 
     @Nullable

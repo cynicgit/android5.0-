@@ -1,6 +1,8 @@
 package ip.cynic.beautiful_girl.view;
 
-import android.view.View;
+import java.util.List;
+
+import ip.cynic.beautiful_girl.bean.GankGirl;
 
 /**
  * Created by cynic on 2016/6/2.
@@ -11,8 +13,8 @@ public interface GirlView {
 
     void hideLoading();
 
-    void showFailError(View v);
+    void showFailError();
 
-    void showSuccessPage();
+    void showSuccessPage(List<GankGirl> datas);
 
 }
