@@ -48,6 +48,11 @@ public class GirlPresenter extends BasePresenter {
 
     public void loadPage(int page) {
         mGirlView.showLoading();
+        subsrcibe(page);
+
+    }
+
+    private void subsrcibe(int page) {
         unsubscribe();
         mSubscription = mGirlService.getGankGils()
                 .getGankGirls(NUMBER, page)
@@ -55,7 +60,10 @@ public class GirlPresenter extends BasePresenter {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(mObserver);
+    }
 
+    public void loadMore(int page) {
+        subsrcibe(page);
     }
 
     public void initData(int page) {

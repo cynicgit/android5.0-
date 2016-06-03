@@ -38,6 +38,10 @@ public class GirlFragment extends BaseFragment implements GirlView, SwipeRefresh
     private int page = 1;
     private boolean isRefresh;
     private boolean isLoadMore;
+    private StaggeredGridLayoutManager mLayoutManager;
+
+    private List<GankGirl> mGankGirls;
+    private int mCurrentPostion;
 
     @Override
     public View initView(LayoutInflater inflater, @Nullable ViewGroup container) {
@@ -45,9 +49,10 @@ public class GirlFragment extends BaseFragment implements GirlView, SwipeRefresh
         ButterKnife.bind(this, view);
         mPresenter = new GirlPresenter(this);
         mGirlAdapter = new GirlAdapter();
-        RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(layoutManager);
+        mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mGirlAdapter);
+        mRecyclerView.addOnScrollListener(getOnScrollListener());
         //刷新时颜色变化
         mSwipeRefreshLayout.setColorSchemeColors(Color.BLUE, Color.GREEN, Color.RED, Color.YELLOW);
         mSwipeRefreshLayout.setOnRefreshListener(this);
@@ -65,6 +70,7 @@ public class GirlFragment extends BaseFragment implements GirlView, SwipeRefresh
 
     @Override
     public void hideLoading() {
+
         isRefresh = false;
         mSwipeRefreshLayout.setRefreshing(false);
     }
@@ -83,8 +89,15 @@ public class GirlFragment extends BaseFragment implements GirlView, SwipeRefresh
 
     @Override
     public void showSuccessPage(List<GankGirl> datas) {
-        hideLoading();
-        mGirlAdapter.setBeautyGirls(datas);
+        if (!isLoadMore) {
+            mGankGirls = datas;
+            hideLoading();
+            mGirlAdapter.setBeautyGirls(mGankGirls);
+        } else {
+            mGankGirls.addAll(datas);
+            isLoadMore = false;
+            mGirlAdapter.setBeautyGirls(mGankGirls);
+        }
         page++;
     }
 
@@ -97,9 +110,9 @@ public class GirlFragment extends BaseFragment implements GirlView, SwipeRefresh
     @Override
     public void onRefresh() {
         if (!isRefresh) {
-            Log.e(TAG, "isRefresh");
-        } else {
             mPresenter.loadPage(1);
+        } else {
+            Log.e(TAG, "isRefresh");
         }
 
     }
@@ -113,4 +126,34 @@ public class GirlFragment extends BaseFragment implements GirlView, SwipeRefresh
         super.onDestroyView();
         mPresenter.unsubscribe();
     }
+
+
+    private RecyclerView.OnScrollListener getOnScrollListener() {
+
+        RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int[] lastVisibleItem = new int[2];
+                mLayoutManager.findLastVisibleItemPositions(lastVisibleItem);
+
+                int right = lastVisibleItem[1];
+                Log.i(TAG, "right " + right + "  ItemCount " + mGirlAdapter.getItemCount());
+
+                if (dy > 0 && right > mGirlAdapter.getItemCount() - 4 && !mSwipeRefreshLayout.isRefreshing() && !isLoadMore) {
+                    mPresenter.loadMore(page);
+                    isLoadMore = true;
+                    int[] firstVisibleItem = new int[2];
+                    mLayoutManager.findFirstVisibleItemPositions(firstVisibleItem);
+                    mCurrentPostion = firstVisibleItem[1];
+                }
+
+                Log.i(TAG , "isLoadMore " +isLoadMore);
+            }
+        };
+        return onScrollListener;
+    }
+
+
 }
