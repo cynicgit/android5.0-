@@ -92,6 +92,7 @@ public class GirlFragment extends BaseFragment implements GirlView, SwipeRefresh
     public void showSuccessPage(List<GankGirl> datas) {
         if (!isLoadMore) {
             mCurrentPostion = 0;
+            page = 0;
             mGankGirls = datas;
             hideLoading();
         } else {
@@ -99,7 +100,7 @@ public class GirlFragment extends BaseFragment implements GirlView, SwipeRefresh
             isLoadMore = false;
         }
         mGirlAdapter.setBeautyGirls(mGankGirls,mCurrentPostion);
-        page++;
+        page ++;
     }
 
 
@@ -142,7 +143,7 @@ public class GirlFragment extends BaseFragment implements GirlView, SwipeRefresh
                 int right = lastVisibleItem[1];
                 Log.i(TAG, "right " + right + "  ItemCount " + mGirlAdapter.getItemCount());
 
-                if (dy > 0 && right > mGirlAdapter.getItemCount() - 7 && !mSwipeRefreshLayout.isRefreshing() && !isLoadMore) {
+                if (dy > 0 && right > mGirlAdapter.getItemCount() - 4 && !mSwipeRefreshLayout.isRefreshing() && !isLoadMore) {
                     mPresenter.loadMore(page);
                     isLoadMore = true;
                     int[] firstVisibleItem = new int[2];
@@ -151,7 +152,7 @@ public class GirlFragment extends BaseFragment implements GirlView, SwipeRefresh
                     Snackbar.make(mRecyclerView, "加载数据", Snackbar.LENGTH_LONG).show();
                 }
 
-                Log.i(TAG, "isLoadMore " + isLoadMore);
+                Log.i(TAG, "isLoadMore " + isLoadMore + " page  " +page);
             }
         };
         return onScrollListener;

@@ -1,6 +1,7 @@
 package ip.cynic.beautiful_girl.network;
 
 import ip.cynic.beautiful_girl.network.api.GankApi;
+import ip.cynic.beautiful_girl.network.api.WenXinApi;
 import okhttp3.OkHttpClient;
 import retrofit2.CallAdapter;
 import retrofit2.Retrofit;
@@ -13,8 +14,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NetworkClient {
 
     private final static String GANK_URL = "http://gank.io/api/";
+    private final static String WenXin_URL = "http://apicloud.mob.com/";
 
     private static GankApi mGankApi = null;
+    private static WenXinApi mWenXinApi = null;
+
     private static OkHttpClient mOkHttpClient = new OkHttpClient();
     private static GsonConverterFactory mGsonConverterFactory = GsonConverterFactory.create();
     private static CallAdapter.Factory mRxjavaCallAdapter = RxJavaCallAdapterFactory.create();
@@ -32,6 +36,22 @@ public class NetworkClient {
             mGankApi = retrofit.create(GankApi.class);
         }
         return mGankApi;
+    }
+
+
+    public static WenXinApi getWenXinApi() {
+
+        if(mWenXinApi == null) {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .client(mOkHttpClient)
+                    .baseUrl("")
+                    .addConverterFactory(mGsonConverterFactory)
+                    .addCallAdapterFactory(mRxjavaCallAdapter)
+                    .build();
+            mWenXinApi = retrofit.create(WenXinApi.class);
+        }
+
+        return mWenXinApi;
     }
 
 }

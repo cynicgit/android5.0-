@@ -62,6 +62,10 @@ public class GirlPresenter extends BasePresenter {
                 .subscribe(mObserver);
     }
 
+    /**
+     * 加载更多
+     * @param page
+     */
     public void loadMore(int page) {
         subsrcibe(page);
     }

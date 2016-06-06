@@ -40,7 +40,7 @@ public class GirlAdapter extends RecyclerView.Adapter<GirlAdapter.GirlHolder>{
         getRandomHeight(beautyGirls);
         if(currentPosition == 0){
             notifyDataSetChanged();
-        } else {
+        } else { //解决刷新时闪屏 白屏
             notifyItemRangeChanged(currentPosition, mGankGirls.size());
         }
     }

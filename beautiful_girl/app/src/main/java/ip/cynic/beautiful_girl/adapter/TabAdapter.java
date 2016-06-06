@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class TabAdapter extends FragmentPagerAdapter{
     List<Fragment>  mFragments;
-    String[] titles = {"Girl","Gank","Video"};
+    String[] titles = {"Girl","互联网","Video"};
 
     public TabAdapter(FragmentManager fm, List<Fragment> mFragments) {
         super(fm);
