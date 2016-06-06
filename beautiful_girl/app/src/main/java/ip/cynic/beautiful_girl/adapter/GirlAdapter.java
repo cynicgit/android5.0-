@@ -24,11 +24,29 @@ public class GirlAdapter extends RecyclerView.Adapter<GirlAdapter.GirlHolder>{
 
     private List<Integer> mHeights;
 
-    public void setBeautyGirls(List<GankGirl> beautyGirls) {
+
+    public GirlAdapter() {
+        setHasStableIds(true);
+    }
+
+    //需要设置Id
+    @Override
+    public long getItemId(int position) {
+        return mGankGirls.get(position).id;
+    }
+
+    public void setBeautyGirls(List<GankGirl> beautyGirls,int currentPosition) {
         mGankGirls = beautyGirls;
         getRandomHeight(beautyGirls);
-        notifyDataSetChanged();
+        if(currentPosition == 0){
+            notifyDataSetChanged();
+        } else {
+            notifyItemRangeChanged(currentPosition, mGankGirls.size());
+        }
     }
+
+
+
 
     private void getRandomHeight(List lists){//得到随机item的高度
 

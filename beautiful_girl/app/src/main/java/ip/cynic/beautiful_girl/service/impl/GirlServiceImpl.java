@@ -45,15 +45,16 @@ public class GirlServiceImpl implements GirlService{
             for (GankIoJson.BeautyResult result : results) {
                 String imgUrl = result.url;
                 String time = null;
+                Date date = null;
                 try {
-                    Date date = input.parse(result.createdAt);
+                    date = input.parse(result.createdAt);
                     time = output.format(date);
                 } catch (ParseException e) {
                     e.printStackTrace();
                     time = "UnKnown Time";
                 }
 
-                gankGirls.add(new GankGirl(time,imgUrl));
+                gankGirls.add(new GankGirl(time,imgUrl,date.getTime()));
             }
 
             return gankGirls;

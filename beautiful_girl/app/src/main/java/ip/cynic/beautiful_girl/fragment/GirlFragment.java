@@ -56,6 +56,7 @@ public class GirlFragment extends BaseFragment implements GirlView, SwipeRefresh
         //刷新时颜色变化
         mSwipeRefreshLayout.setColorSchemeColors(Color.BLUE, Color.GREEN, Color.RED, Color.YELLOW);
         mSwipeRefreshLayout.setOnRefreshListener(this);
+        mSwipeRefreshLayout.measure(View.MEASURED_SIZE_MASK, View.MEASURED_HEIGHT_STATE_SHIFT);
         //第一次加载数据 可以缓存从本地获取
         mPresenter.initData(page);
         return view;
@@ -90,14 +91,14 @@ public class GirlFragment extends BaseFragment implements GirlView, SwipeRefresh
     @Override
     public void showSuccessPage(List<GankGirl> datas) {
         if (!isLoadMore) {
+            mCurrentPostion = 0;
             mGankGirls = datas;
             hideLoading();
-            mGirlAdapter.setBeautyGirls(mGankGirls);
         } else {
             mGankGirls.addAll(datas);
             isLoadMore = false;
-            mGirlAdapter.setBeautyGirls(mGankGirls);
         }
+        mGirlAdapter.setBeautyGirls(mGankGirls,mCurrentPostion);
         page++;
     }
 
@@ -141,15 +142,16 @@ public class GirlFragment extends BaseFragment implements GirlView, SwipeRefresh
                 int right = lastVisibleItem[1];
                 Log.i(TAG, "right " + right + "  ItemCount " + mGirlAdapter.getItemCount());
 
-                if (dy > 0 && right > mGirlAdapter.getItemCount() - 4 && !mSwipeRefreshLayout.isRefreshing() && !isLoadMore) {
+                if (dy > 0 && right > mGirlAdapter.getItemCount() - 7 && !mSwipeRefreshLayout.isRefreshing() && !isLoadMore) {
                     mPresenter.loadMore(page);
                     isLoadMore = true;
                     int[] firstVisibleItem = new int[2];
                     mLayoutManager.findFirstVisibleItemPositions(firstVisibleItem);
-                    mCurrentPostion = firstVisibleItem[1];
+                    mCurrentPostion = right;
+                    Snackbar.make(mRecyclerView, "加载数据", Snackbar.LENGTH_LONG).show();
                 }
 
-                Log.i(TAG , "isLoadMore " +isLoadMore);
+                Log.i(TAG, "isLoadMore " + isLoadMore);
             }
         };
         return onScrollListener;
