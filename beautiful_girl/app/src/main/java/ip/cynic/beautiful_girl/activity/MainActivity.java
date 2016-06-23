@@ -16,6 +16,7 @@ import ip.cynic.beautiful_girl.R;
 import ip.cynic.beautiful_girl.adapter.TabAdapter;
 import ip.cynic.beautiful_girl.fragment.GirlFragment;
 import ip.cynic.beautiful_girl.fragment.PageFragment;
+import ip.cynic.beautiful_girl.fragment.WeiXinApiFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,9 +40,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setTabs() {
-        mFragments = new ArrayList<Fragment>();
+        mFragments = new ArrayList<>();
         mFragments.add(new GirlFragment());
-        for (int i = 1; i < 3; i++) {
+        mFragments.add(new WeiXinApiFragment());
+        for (int i = 2; i < 3; i++) {
             mFragments.add(PageFragment.newInstance(i));
         }
         TabAdapter tabAdapter = new TabAdapter(getSupportFragmentManager(), mFragments);

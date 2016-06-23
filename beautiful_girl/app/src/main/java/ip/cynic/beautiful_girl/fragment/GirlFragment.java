@@ -24,7 +24,7 @@ import ip.cynic.beautiful_girl.view.GirlView;
 /**
  * Created by cynic on 2016/5/26.
  */
-public class GirlFragment extends BaseFragment implements GirlView, SwipeRefreshLayout.OnRefreshListener {
+public class GirlFragment extends BaseFragment implements GirlView {
 
     private static final String TAG = "GirlFragment";
     @Bind(R.id.swipe_refresh_layout)
@@ -48,18 +48,30 @@ public class GirlFragment extends BaseFragment implements GirlView, SwipeRefresh
         View view = inflater.inflate(R.layout.girl_layout, container, false);
         ButterKnife.bind(this, view);
         mPresenter = new GirlPresenter(this);
+        setRecyclerView();
+        setSwipeRefreshLayout();
+
+        //第一次加载数据 可以缓存从本地获取
+        mPresenter.initData(page);
+        return view;
+    }
+
+    @Override
+    public void setRecyclerView() {
         mGirlAdapter = new GirlAdapter();
         mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mGirlAdapter);
         mRecyclerView.addOnScrollListener(getOnScrollListener());
+    }
+
+    @Override
+    public void setSwipeRefreshLayout() {
         //刷新时颜色变化
         mSwipeRefreshLayout.setColorSchemeColors(Color.BLUE, Color.GREEN, Color.RED, Color.YELLOW);
         mSwipeRefreshLayout.setOnRefreshListener(this);
+        //强制测绘
         mSwipeRefreshLayout.measure(View.MEASURED_SIZE_MASK, View.MEASURED_HEIGHT_STATE_SHIFT);
-        //第一次加载数据 可以缓存从本地获取
-        mPresenter.initData(page);
-        return view;
     }
 
 

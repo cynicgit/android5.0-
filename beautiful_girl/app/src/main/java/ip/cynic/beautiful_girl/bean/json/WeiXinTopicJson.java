@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by cynic on 2016/6/6.
  */
-public class WenXinTopicJson {
+public class WeiXinTopicJson {
 
 
     /**

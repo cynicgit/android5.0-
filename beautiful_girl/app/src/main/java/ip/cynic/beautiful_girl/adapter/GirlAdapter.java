@@ -45,15 +45,10 @@ public class GirlAdapter extends RecyclerView.Adapter<GirlAdapter.GirlHolder>{
         }
     }
 
-
-
-
     private void getRandomHeight(List lists){//得到随机item的高度
-
         if(lists == null) {
             return;
         }
-
         mHeights = new ArrayList<>();
         for (int i = 0; i < lists.size(); i++) {
             mHeights.add((int)(200+Math.random()*400));

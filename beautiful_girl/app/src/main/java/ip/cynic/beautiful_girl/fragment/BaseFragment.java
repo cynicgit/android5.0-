@@ -3,6 +3,7 @@ package ip.cynic.beautiful_girl.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +15,7 @@ import rx.Subscription;
 /**
  * Created by cynic on 2016/6/2.
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
 
 
     private static final String TAG = "BaseFragment";
@@ -36,6 +37,8 @@ public abstract class BaseFragment extends Fragment {
     }
 
     public abstract View initView(LayoutInflater inflater, @Nullable ViewGroup container);
+    public abstract void setRecyclerView();
+    public abstract void setSwipeRefreshLayout();
 
     /**
      * 取消订阅

@@ -44,7 +44,7 @@ public class GirlServiceImpl implements GirlService{
 
             for (GankIoJson.BeautyResult result : results) {
                 String imgUrl = result.url;
-                String time = null;
+                String time;
                 Date date = null;
                 try {
                     date = input.parse(result.createdAt);
